@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     //Enabling CORS 
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, contentType,Content-Type, Accept, Authorization");
     next();
 });
@@ -93,8 +93,7 @@ app.post("/api/product", function (req, res) {
     sql.on('error', err => {
         // ... error handler
     })
-    // var query = "INSERT INTO [Table_products] (name, description, price) VALUES ( '" + req.body.product.name+"','"+req.body.product.description+"',"+req.body.product.price+");";
-    // executeQuery (res, query);
+
 });
 
 //PUT API
@@ -117,8 +116,6 @@ app.put("/api/product/:id", function (req, res) {
     sql.on('error', err => {
         // ... error handler
     })
-    // var query = "UPDATE [Table_products] SET name= '" + req.body.product.name + "' , description=  '" + req.body.product.description + "' , price=  " + req.body.product.price + "  WHERE id= " + req.params.id + ";";
-    // executeQuery(res, query);
 });
 
 // DELETE API

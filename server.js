@@ -41,14 +41,13 @@ var  executeQuery = function(res, query){
                          // create Request object
                          var request = new sql.Request();
                          // query to the database
-                         request.query(query, function (err, res) {
+                         request.query(query, function (err, result) {
                            if (err) {
                                       console.log("Error while querying database :- " + err);
                                       res.send(err);
                                      }
                                      else {
-                                         console.log(res);
-                                       res.send(res);
+                                       res.send(result);
                                             }
                                });
                        }
@@ -56,31 +55,31 @@ var  executeQuery = function(res, query){
 }
 
 //GET API
-app.get("/api/user", function(req , res){
-                var query = "SELECT * FROM [Table_user];";
+app.get("/api/product", function(req , res){
+                var query = "SELECT id, name, description, price FROM [Table_products];";
                 executeQuery (res, query);
 });
 
 //GET API by id
-app.get("/api/user/:id", function(req , res){
-    var query = "SELECT * FROM [Table_user] WHERE id = "+req.params.id+";";
+app.get("/api/product/:id", function(req , res){
+    var query = "SELECT id, name, description, price FROM [Table_products] WHERE id = "+req.params.id+";";
     executeQuery (res, query);
 });
 
 //POST API
- app.post("/api/user", function(req , res){
-                var query = "INSERT INTO [Table_user] (Name,Email,Password) VALUES ( " + req.body.Name+","+req.body.Email+","+req.body.Password+");";
+ app.post("/api/product", function(req , res){
+                var query = "INSERT INTO [Table_products] (name, description, price) VALUES ( '" + req.body.product.name+"','"+req.body.product.description+"',"+req.body.product.price+");";
                 executeQuery (res, query);
 });
 
 //PUT API
- app.put("/api/user/:id", function(req , res){
-                var query = "UPDATE [Table_user] SET Name= " + req.body.Name  +  " , Email=  " + req.body.Email + "  WHERE Id= " + req.params.id+";";
+ app.put("/api/product/:id", function(req , res){
+                var query = "UPDATE [Table_products] SET name= '" + req.body.product.name  +  "' , description=  '" + req.body.product.description + "' , price=  " + req.body.product.price + "  WHERE id= " + req.params.id+";";
                 executeQuery (res, query);
 });
 
 // DELETE API
- app.delete("/api/user/:id", function(req , res){
-                var query = "DELETE FROM [Table_user] WHERE id=" + req.params.id+";";
+ app.delete("/api/product/:id", function(req , res){
+                var query = "DELETE FROM [Table_products] WHERE id=" + req.params.id+";";
                 executeQuery (res, query);
 });

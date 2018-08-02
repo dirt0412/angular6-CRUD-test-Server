@@ -71,12 +71,12 @@ app.post("/api/product", function (req, res) {
     (async function () {
         try {
             let pool = await sql.connect(dbConfig)
-            let result1 = await pool.request()
+            let result = await pool.request()
                 .input('name', sql.NVarChar, req.body.product.name)
                 .input('description', sql.NVarChar, req.body.product.description)
                 .query("INSERT INTO [Table_products] (name, description, price) VALUES ( @name,@description,"+req.body.product.price+");")
 
-            //console.dir(result1)
+                res.send(result);
 
             // // Stored procedure            
             // let result2 = await pool.request()
@@ -102,12 +102,12 @@ app.put("/api/product/:id", function (req, res) {
     (async function () {
         try {
             let pool = await sql.connect(dbConfig)
-            let result1 = await pool.request()
+            let result = await pool.request()
                 .input('name', sql.NVarChar, req.body.product.name)
                 .input('description', sql.NVarChar, req.body.product.description)
                 .query("UPDATE [Table_products] SET name=@name , description=@description , price=" + req.body.product.price + "  WHERE id= " + req.params.id + ";")
 
-            //console.dir(result1)
+                res.send(result);
         } catch (err) {
             console.log("Error : " + err);
             res.send(err);
